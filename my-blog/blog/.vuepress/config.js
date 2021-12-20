@@ -12,16 +12,28 @@ module.exports = {
             { text: "感悟", link: "/interview/" }
         ],
         dateFormat: 'YYYY-MM-DD',
-        contact: [
-            {
-                type: 'github',
-                link: 'https://github.com/vuejs/vuepress',
-            },
-            {
-                type: 'twitter',
-                link: 'https://github.com/vuejs/vuepress',
-            },
-        ],
+        footer: {
+            contact: [
+                {
+                    type: 'github',
+                    link: 'https://github.com/vuejs/vuepress',
+                },
+                {
+                    type: 'twitter',
+                    link: 'https://github.com/vuejs/vuepress',
+                },
+            ],
+            copyright: [
+                {
+                  text: 'Privacy Policy',
+                  link: 'https://policies.google.com/privacy?hl=en-US',
+                },
+                {
+                  text: 'MIT Licensed | Copyright © 2018-present Vue.js',
+                  link: '',
+                },
+              ],
+        },
     },
     plugins: [
         ['@vuepress/back-to-top'], // 返回顶部
