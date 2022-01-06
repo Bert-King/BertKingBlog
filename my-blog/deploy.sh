@@ -4,7 +4,7 @@
  # @version: 
  # @Date: 2021-12-20 22:46:51
  # @LastEditors: BertKing
- # @LastEditTime: 2021-12-25 14:41:20
+ # @LastEditTime: 2022-01-06 22:30:54
  # @FilePath: /BertKingBlog/my-blog/deploy.sh
  # @Description: 
 ### 
@@ -25,7 +25,8 @@ git init
 git add -A
 git commit -m 'deploy'
 
+# https://bert-king.github.io/BertKingBlog/
 # 如果发布到 https://<USERNAME>.github.io/<REPO>
-git push -f git@github.com:Bertkiing/BertKingBlog.git master:gh-pages
+git push -f git@github.com:bert-king/BertKingBlog.git master:gh-pages
 
 cd -
