@@ -74,7 +74,7 @@ As we all know, Android系统是基于Linux内核开发的. 整个熟悉的Andro
 
 Binder是基于开源库[OpenBinder](http://www.angryredplanet.com/~hackbod/openbinder/docs/html/BinderIPCMechanism.html)实现的。
 
-当然后来还有其它可供的方案,如[D-bus](https://www.freedesktop.org/wiki/Software/dbus/),后来又出现了[kdbus]().感兴趣的可以自行学习。
+当然后来还有其它可供的方案,如[D-bus](https://www.freedesktop.org/wiki/Software/dbus/),后来又出现了[kdbus](http://kroah.com/log/blog/2014/01/15/kdbus-details/).感兴趣的可以自行学习。
 
 
 其实到了这里，我们要明确一点，Binder是Android系统中采用的进程间通信方式，但是其内部同样也使用了其它的Linux已有的进程间通信方式。
@@ -89,4 +89,20 @@ Binder是基于开源库[OpenBinder](http://www.angryredplanet.com/~hackbod/open
 
 ---
 
+在Zygote孵化出system_server进程后，在system_server进程中初始化支持整个Android framework的各种各样的Service，而这些Service从大的方向来划分，分为Java层Framework和Native Framework层(C++)的Service，几乎都是基于BInder IPC机制。
+> **Java framework**：作为Server端继承(或间接继承)于Binder类，Client端继承(或间接继承)于BinderProxy类。例如 ActivityManagerService(用于控制Activity、Service、进程等) 这个服务作为Server端，间接继承Binder类，而相应的ActivityManager作为Client端，间接继承于BinderProxy类。 当然还有PackageManagerService、WindowManagerService等等很多系统服务都是采用C/S架构；
+>
+>**Native Framework层**：这是C++层，作为Server端继承(或间接继承)于BBinder类，Client端继承(或间接继承)于BpBinder。例如MediaPlayService(用于多媒体相关)作为Server端，继承于BBinder类，而相应的MediaPlay作为Client端，间接继承于BpBinder类。
 
+总结一下: 
+1. Java Framework: 
+    >Server端继承自**Binder**类， Client端继承自 **BinderProxy**类。
+    >
+    >At the same time, Server端一般都以Service结尾(ActivityService)，而Client端都以Manager结尾(ActivityManager)。
+
+2. Native Framework: 
+    > Server端(如:MediaPlayService)都继承自BBinder类；Clicent端(如:MediaPlay)都继承BpBinder类
+
+---
+
+[为什么 Android 要采用 Binder 作为 IPC 机制？](https://www.zhihu.com/question/39440766)
